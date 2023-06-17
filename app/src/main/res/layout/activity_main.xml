@@ -6,6 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:navigationBarColor="@android:color/white"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="118dp">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -14,5 +23,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+                android:text="TextXcoord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/TextXcoord"/>
+        <Button
+                android:text="X coord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/buttonXcoord"/>
+        <TextView
+                android:text="TextYcoord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/TextYcoord"/>
+        <Button
+                android:text="Y coord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/buttonYcoord"/>
+        <TextView
+                android:text="TextValues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView3"/>
+        <Button
+                android:text="Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/buttonValues"/>
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
