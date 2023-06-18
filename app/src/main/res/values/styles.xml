@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="simpleTextView1">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:background">@color/grin</item>
+
+    </style>
+
+
+    <style name="simpleTextView2">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:textSize">20dp</item>
+
+    </style>
+</resources>
