@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,20 +13,13 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity  {
-
     int testInt = 10;
     int[][] sudokuTable = new int[10][9];
-
     int coordX = 2;
     int coordY = 2;
     int valueNumber = 0;
-
     int coordsquareX = 1; // координата квадрата 3 на 3, он же индекс_начала_копирования
     int coordsquareY = 1; // координата квадрата 3 на 3, индекс массива sudokuTable [i][]
-
-
-
-
 
 
     @Override
@@ -37,6 +31,7 @@ public class MainActivity extends AppCompatActivity  {
         Log.d("MyLog2", "Салам пополам2");
         Log.i("MyLog", "Салам пополам");
 
+        Toast.makeText(this, "Привет мир раз!", Toast.LENGTH_SHORT).show();
 
         sudokuTable [0] = new int[]{ 1, 2, 3,   4, 5, 6,    7, 8, 9};
         //-------------------------------------------------------
@@ -53,13 +48,10 @@ public class MainActivity extends AppCompatActivity  {
         sudokuTable [9] = new int[]{ 2, 0, 0,   0, 0, 0,    0, 0, 5};
 
         zalivka();
-        searchNumber();
 
-
+        searchNumber(3, 2, 2);
 
     }
-
-
 
     public void zalivka() {
 
@@ -96,20 +88,51 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    public  void searchNumber(){
+    public void writeANumber(View view) {
+
+
+        TextView coordXtext = (TextView) findViewById(R.id.TextXcoord);// получение ссылки на TextView по его id
+        String textX = coordXtext.getText().toString(); // получение текста из TextView в виде строки
+        coordX = Integer.parseInt(textX); // преобразование строки в число типа int
+
+        TextView coordYtext = (TextView) findViewById(R.id.TextYcoord);// получение ссылки на TextView по его id
+        String textY = coordYtext.getText().toString(); // получение текста из TextView в виде строки
+        coordY = Integer.parseInt(textY); // преобразование строки в число типа int
+
+        TextView valueNumberTV = (TextView) findViewById(R.id.textViewValueNumber);// получение ссылки на TextView по его id
+        String stringValueNumber = valueNumberTV.getText().toString(); // получение текста из TextView в виде строки
+        valueNumber = Integer.parseInt(stringValueNumber); // преобразование строки в число типа int
+
+
+        // если число не повторяется то
+        sudokuTable [coordX][coordY] = valueNumber;
+        // если повторяется то
+
+
+
+        testInt = sudokuTable[1][0];
+
+        zalivka();
+
+
+    }
+
+
+    public  void searchNumber(int desiredNumber, int x, int y){
+        // the desired number - искомое число, x- икс координата числа, у - игрек координата числа
+        // должен возвращать true - если выбранной нами цифры в судоку еще нет
+        // и должен возвращать folse - если цифра уже есть в строке, столбце или квадрате
+
         // метод проверяет есть ли записанная нами цифра в судоку
         // но в искомом массиве надо сначала сделать сортировку, чтобы
         // метод binarySearch работал корректно
-        // поэтому копируем вертикаль, горизонталь и клетку 9 на 9
-        // а потом их сортируем
-        // и потом уже в них ищем
+        // копируем вертикаль, горизонталь и клетку 9 на 9 в один массив
+        // его сортируем и выполняем в нем поиск.
 
-        // А может вертикаль, горизонталь и клетку 9 на 9 скопировать в один массив?
-        // его отсортировать и выполнить в нем поиск?
         //Для объединения двух массивов в Java можно использовать
         // метод System.arraycopy().
 
-        int desiredNumber = 4; // the desired number - искомое число
+
 
 //System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
 // System.arraycopy(исходный_массив,
@@ -120,7 +143,7 @@ public class MainActivity extends AppCompatActivity  {
 
         //  1)
         // горизонталь = горизонтали
-        int [] arrHorizont = sudokuTable [coordY];
+        int [] arrHorizont = sudokuTable [y];
 
         //   2)
         // ветикаль  =
@@ -129,7 +152,7 @@ public class MainActivity extends AppCompatActivity  {
 
         int [] arrVertical = new int[9];
         for (int i = 1; i < 10; i++) {
-            System.arraycopy(sudokuTable[i], coordX, arrVertical, i-1, 1);
+            System.arraycopy(sudokuTable[i], x, arrVertical, i-1, 1);
 
         }
 
@@ -138,14 +161,14 @@ public class MainActivity extends AppCompatActivity  {
         int [] arrSquare = new int[9];
 
         // у разного квадрата будет меняться только индекс_начала_копирования
-        if (coordX < 3) {coordsquareX = 0;}
-        if (coordX <= 6 && coordX > 3) {coordsquareX = 3;}
-        if (coordX <= 9 && coordX > 6) {coordsquareX = 7;}
+        if (x < 3) {coordsquareX = 0;}
+        if (x <= 6 && x > 3) {coordsquareX = 3;}
+        if (x <= 9 && x > 6) {coordsquareX = 7;}
 
         // у разного квадрата будет меняться только индекс массива sudokuTable [i][]
-        if (coordY < 3) {coordsquareY = 0;}
-        if (coordY <= 6 && coordY > 3) {coordsquareY = 3;}
-        if (coordY <= 9 && coordY > 6) {coordsquareY = 6;}
+        if (y < 3) {coordsquareY = 0;}
+        if (y <= 6 && y > 3) {coordsquareY = 3;}
+        if (y <= 9 && y > 6) {coordsquareY = 6;}
 
 //        int m = 0; // Вместо k надо приравнять к coordsquareX и протестировать - не получается
 //        // Значит через if  сделать 3 разных перебора попробовать
@@ -166,7 +189,7 @@ public class MainActivity extends AppCompatActivity  {
         for (int i = 1; i < 4; i++) {
             for (int k = 0; k < 3; k++) {
 
-                System.arraycopy(sudokuTable[i+coordsquareY], coordX+k-1, arrSquare, k+m+i-1, 1);
+                System.arraycopy(sudokuTable[i+coordsquareY], x+k-1, arrSquare, k+m+i-1, 1);
             } m = m + 2;
         }
 
@@ -211,32 +234,18 @@ public class MainActivity extends AppCompatActivity  {
 
         int index = Arrays.binarySearch(result, valueNumber);
 
+        //   7)
+        // если найдено - то сообщение об ошибке, если нет - то writeANumber();
+        if (index < 0) {
+        }
+
+// Здесь мы сразу передали сообщение "Привет, мир!" и длительность отображения Toast.LENGTH_SHORT
+// (короткая длительность). Метод show() отображает сообщение на экране.
+        Toast.makeText(this, "Привет мир!", Toast.LENGTH_LONG).show();
+
 
     }
 
-
-    public void writeANumber(View view) {
-
-
-        TextView coordXtext = (TextView) findViewById(R.id.TextXcoord);// получение ссылки на TextView по его id
-        String textX = coordXtext.getText().toString(); // получение текста из TextView в виде строки
-        coordX = Integer.parseInt(textX); // преобразование строки в число типа int
-
-        TextView coordYtext = (TextView) findViewById(R.id.TextYcoord);// получение ссылки на TextView по его id
-        String textY = coordYtext.getText().toString(); // получение текста из TextView в виде строки
-        coordY = Integer.parseInt(textY); // преобразование строки в число типа int
-
-        TextView valueNumberTV = (TextView) findViewById(R.id.textViewValueNumber);// получение ссылки на TextView по его id
-        String stringValueNumber = valueNumberTV.getText().toString(); // получение текста из TextView в виде строки
-        valueNumber = Integer.parseInt(stringValueNumber); // преобразование строки в число типа int
-
-        sudokuTable [coordX][coordY] = valueNumber;
-
-        testInt = sudokuTable[1][0];
-
-        zalivka();
-
-    }
 
 
     public  void PrimerKopirovaniya() {
