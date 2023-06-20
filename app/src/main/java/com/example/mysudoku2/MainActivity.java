@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity  {
     int coordY = 1;
     int valueNumber = 0;
 
+    int coordsquareX = 1; // координата квадрата 3 на 3, он же индекс_начала_копирования
+    int coordsquareY = 1; // координата квадрата 3 на 3, индекс массива sudokuTable [i][]
+
+
 
 
 
@@ -114,10 +118,11 @@ public class MainActivity extends AppCompatActivity  {
 //                  индекс_вставки,
 //                  количество_элементов);
 
-
+        //  1)
         // горизонталь = горизонтали
         int [] arrHorizont = sudokuTable [coordY];
 
+        //   2)
         // ветикаль  =
         // 	For (		)
         //		System.arraycopy(sudokuTable [i], Coord Y, arrVertic, i, 1);
@@ -128,12 +133,33 @@ public class MainActivity extends AppCompatActivity  {
 
         }
 
+        // 3)
+        // квадрат в массив
+        int [] arrSquare = new int[9];
+
+        // у разного квадрата будет меняться только индекс_начала_копирования
+        if (coordX < 3) {coordsquareX = 0;}
+        if (coordX <= 6 && coordX > 3) {coordsquareX = 2;}
+        if (coordX <= 9 && coordX > 6) {coordsquareX = 6;}
+
+        // у разного квадрата будет меняться только индекс массива sudokuTable [i][]
+        if (coordY < 3) {coordsquareY = 0;}
+        if (coordY <= 6 && coordY > 3) {coordsquareY = 2;}
+        if (coordY <= 9 && coordY > 6) {coordsquareY = 6;}
+        int m = 0;
+        for (int i = 1; i < 4; i++) {
+            for (int k = 0; k < 3; k++) {
+
+                System.arraycopy(sudokuTable[i], k, arrSquare, k+m+i-1, 1);
+            } m = m + 2;
+        }
 
 
-        int [] arrSquare = new int[] {21, 22, 23, 24, 25, 26, 27, 28, 29};
 
-        // И в конце копируем третий массив в результ
-        //System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+
+
+
+
 
 
 
