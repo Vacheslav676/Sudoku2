@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity  {
     int testInt = 10;
     int[][] sudokuTable = new int[10][9];
 
-    int coordX = 1;
-    int coordY = 1;
+    int coordX = 4;
+    int coordY = 4;
     int valueNumber = 0;
 
     int coordsquareX = 1; // координата квадрата 3 на 3, он же индекс_начала_копирования
@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity  {
         sudokuTable [2] = new int[]{ 4, 5, 6,   2, 6, 0,    4, 8, 0};
         sudokuTable [3] = new int[]{ 7, 8, 9,   9, 3, 5,    0, 0, 6};
         //-------------------------------------------------------
-        sudokuTable [4] = new int[]{ 0, 3, 0,   4, 8, 0,    2, 0, 0};
-        sudokuTable [5] = new int[]{ 0, 4, 1,   6, 0, 9,    3, 0, 0};
-        sudokuTable [6] = new int[]{ 0, 0, 6,   0, 0, 0,    8, 9, 0};
+        sudokuTable [4] = new int[]{ 0, 3, 0,   9, 8, 7,    2, 0, 0};
+        sudokuTable [5] = new int[]{ 0, 4, 1,   6, 5, 4,    3, 0, 0};
+        sudokuTable [6] = new int[]{ 0, 0, 6,   3, 2, 1,    8, 9, 0};
         //-------------------------------------------------------
         sudokuTable [7] = new int[]{ 5, 7, 8,   0, 4, 0,    0, 0, 2};
         sudokuTable [8] = new int[]{ 0, 0, 0,   3, 0, 0,    0, 7, 0};
@@ -139,22 +139,36 @@ public class MainActivity extends AppCompatActivity  {
 
         // у разного квадрата будет меняться только индекс_начала_копирования
         if (coordX < 3) {coordsquareX = 0;}
-        if (coordX <= 6 && coordX > 3) {coordsquareX = 2;}
-        if (coordX <= 9 && coordX > 6) {coordsquareX = 6;}
+        if (coordX <= 6 && coordX > 3) {coordsquareX = 3;}
+        if (coordX <= 9 && coordX > 6) {coordsquareX = 7;}
 
         // у разного квадрата будет меняться только индекс массива sudokuTable [i][]
         if (coordY < 3) {coordsquareY = 0;}
-        if (coordY <= 6 && coordY > 3) {coordsquareY = 2;}
+        if (coordY <= 6 && coordY > 3) {coordsquareY = 3;}
         if (coordY <= 9 && coordY > 6) {coordsquareY = 6;}
+
+//        int m = 0; // Вместо k надо приравнять к coordsquareX и протестировать - не получается
+//        // Значит через if  сделать 3 разных перебора попробовать
+//        for (int i = 1; i < 4; i++) {
+//            for (int k = 0; k < 3; k++) {
+//
+//                System.arraycopy(sudokuTable[i+coordsquareY], coordsquareX+k, arrSquare, coordsquareX+m+i-1, 1);
+//            } m = m + 2;
+//        }
+
+         // 3)
+        // квадрат 1:1 в массив
+        //int [] arrSquare = new int[9];
+
+        // у разного квадрата будет меняться только индекс_начала_копирования
+
         int m = 0;
         for (int i = 1; i < 4; i++) {
             for (int k = 0; k < 3; k++) {
 
-                System.arraycopy(sudokuTable[i], k, arrSquare, k+m+i-1, 1);
+                System.arraycopy(sudokuTable[i+coordsquareY], coordX+k-1, arrSquare, k+m+i-1, 1);
             } m = m + 2;
         }
-
-
 
 
 
@@ -230,6 +244,34 @@ public class MainActivity extends AppCompatActivity  {
 
         // И в конце копируем третий массив в результ
         System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+
+
+
+
+
+
+//        // 3)
+//        // квадрат 1:1 в массив
+//        int [] arrSquare = new int[9];
+//
+//        // у разного квадрата будет меняться только индекс_начала_копирования
+//        if (coordX < 3) {coordsquareX = 0;}
+//        if (coordX <= 6 && coordX > 3) {coordsquareX = 2;}
+//        if (coordX <= 9 && coordX > 6) {coordsquareX = 6;}
+//
+//        // у разного квадрата будет меняться только индекс массива sudokuTable [i][]
+//        if (coordY < 3) {coordsquareY = 0;}
+//        if (coordY <= 6 && coordY > 3) {coordsquareY = 2;}
+//        if (coordY <= 9 && coordY > 6) {coordsquareY = 6;}
+//
+//
+//        int m = 0;
+//        for (int i = 1; i < 4; i++) {
+//            for (int k = 0; k < 3; k++) {
+//
+//                System.arraycopy(sudokuTable[i], k, arrSquare, k+m+i-1, 1);
+//            } m = m + 2;
+//        }
 
 
 
