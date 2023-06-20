@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity  {
             } m = m + 2;
         }
 
-
+        //      4)
         // Копируем три массива в один
 //System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
 // System.arraycopy(исходный_массив,
@@ -199,7 +199,18 @@ public class MainActivity extends AppCompatActivity  {
         // И в конце копируем третий массив в результ
         System.arraycopy(arrSquare, 0, result, arrHorizont.length + arrVertical.length, arrSquare.length);
 
-        Log.d("result", "arrSquare - " + Arrays.toString(result));
+        Log.d("MyLog2", "result - " + Arrays.toString(result));
+
+        //   5)
+        // сортируем массив
+        Arrays.sort(result);
+        Log.d("MyLog2", "result - " + Arrays.toString(result));
+
+        // 6)
+        // Ищем нужный элемент есть/нет
+
+        int index = Arrays.binarySearch(result, valueNumber);
+
 
     }
 
