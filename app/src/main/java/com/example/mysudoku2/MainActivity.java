@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity  {
     int testInt = 10;
     int[][] sudokuTable = new int[10][9];
 
-    int coordX = 4;
-    int coordY = 4;
+    int coordX = 2;
+    int coordY = 2;
     int valueNumber = 0;
 
     int coordsquareX = 1; // координата квадрата 3 на 3, он же индекс_начала_копирования
@@ -171,16 +171,35 @@ public class MainActivity extends AppCompatActivity  {
         }
 
 
+        // Копируем три массива в один
+//System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+// System.arraycopy(исходный_массив,
+//                  индекс_начала_копирования,
+//                  целевой_массив,
+//                  индекс_вставки,
+//                  количество_элементов);
 
 
+        //В этом примере мы создаем новый массив result длиной
+        // равной сумме длин трёх исходных массивов
 
 
+        int [] result = new int[arrHorizont.length + arrVertical.length + arrSquare.length];
 
+        // Затем мы копируем элементы из arrHorizont в начало result, начиная с индекса 0.
+        System.arraycopy(arrHorizont, 0, result, 0, arrHorizont.length);
 
+        // Затем мы копируем элементы из arrVertical в result, начиная с индекса arrHorizont.length
+        System.arraycopy(arrVertical, 0, result, arrHorizont.length, arrVertical.length);
 
+        Log.d("MyLog2", "arrHorizont - " + Arrays.toString(arrHorizont));
+        Log.d("MyLog2", "arrVertical - " + Arrays.toString(arrVertical));
+        Log.d("MyLog2", "arrSquare - " + Arrays.toString(arrSquare));
 
+        // И в конце копируем третий массив в результ
+        System.arraycopy(arrSquare, 0, result, arrHorizont.length + arrVertical.length, arrSquare.length);
 
-
+        Log.d("result", "arrSquare - " + Arrays.toString(result));
 
     }
 
