@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,10 +25,6 @@ public class MainActivity extends AppCompatActivity  {
     int coordsquareY = 1; // координата квадрата 3 на 3, индекс массива sudokuTable [i][]
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +33,8 @@ public class MainActivity extends AppCompatActivity  {
         Log.v("MyLog", "Салам пополам");
         Log.d("MyLog2", "Салам пополам2");
         Log.i("MyLog", "Салам пополам");
+
+        Toast.makeText(this, "Привет мир раз!", Toast.LENGTH_SHORT).show();
 
 
         sudokuTable [0] = new int[]{ 1, 2, 3,   4, 5, 6,    7, 8, 9};
@@ -95,6 +94,31 @@ public class MainActivity extends AppCompatActivity  {
         S32.setText(String.valueOf(sudokuTable[3][2]));
 
     }
+
+
+    public void writeANumber(View view) {
+
+
+        TextView coordXtext = (TextView) findViewById(R.id.TextXcoord);// получение ссылки на TextView по его id
+        String textX = coordXtext.getText().toString(); // получение текста из TextView в виде строки
+        coordX = Integer.parseInt(textX); // преобразование строки в число типа int
+
+        TextView coordYtext = (TextView) findViewById(R.id.TextYcoord);// получение ссылки на TextView по его id
+        String textY = coordYtext.getText().toString(); // получение текста из TextView в виде строки
+        coordY = Integer.parseInt(textY); // преобразование строки в число типа int
+
+        TextView valueNumberTV = (TextView) findViewById(R.id.textViewValueNumber);// получение ссылки на TextView по его id
+        String stringValueNumber = valueNumberTV.getText().toString(); // получение текста из TextView в виде строки
+        valueNumber = Integer.parseInt(stringValueNumber); // преобразование строки в число типа int
+
+        sudokuTable [coordX][coordY] = valueNumber;
+
+        testInt = sudokuTable[1][0];
+
+        zalivka();
+
+    }
+
 
     public  void searchNumber(){
         // метод проверяет есть ли записанная нами цифра в судоку
@@ -212,31 +236,22 @@ public class MainActivity extends AppCompatActivity  {
         int index = Arrays.binarySearch(result, valueNumber);
 
 
+
+
+        //   7)
+        // если найдено - то сообщение об ошибке, если нет - то writeANumber();
+        if (index < 0) {
+
+
+        }
+
+// Здесь мы сразу передали сообщение "Привет, мир!" и длительность отображения Toast.LENGTH_SHORT
+// (короткая длительность). Метод show() отображает сообщение на экране.
+        Toast.makeText(this, "Привет мир!", Toast.LENGTH_LONG).show();
+
+
     }
 
-
-    public void writeANumber(View view) {
-
-
-        TextView coordXtext = (TextView) findViewById(R.id.TextXcoord);// получение ссылки на TextView по его id
-        String textX = coordXtext.getText().toString(); // получение текста из TextView в виде строки
-        coordX = Integer.parseInt(textX); // преобразование строки в число типа int
-
-        TextView coordYtext = (TextView) findViewById(R.id.TextYcoord);// получение ссылки на TextView по его id
-        String textY = coordYtext.getText().toString(); // получение текста из TextView в виде строки
-        coordY = Integer.parseInt(textY); // преобразование строки в число типа int
-
-        TextView valueNumberTV = (TextView) findViewById(R.id.textViewValueNumber);// получение ссылки на TextView по его id
-        String stringValueNumber = valueNumberTV.getText().toString(); // получение текста из TextView в виде строки
-        valueNumber = Integer.parseInt(stringValueNumber); // преобразование строки в число типа int
-
-        sudokuTable [coordX][coordY] = valueNumber;
-
-        testInt = sudokuTable[1][0];
-
-        zalivka();
-
-    }
 
 
     public  void PrimerKopirovaniya() {
