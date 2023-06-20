@@ -9,11 +9,16 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity  {
 
     int testInt = 10;
     int[][] sudokuTable = new int[10][9];
+
+    int coordX = 1;
+    int coordY = 1;
+    int valueNumber = 0;
 
 
 
@@ -44,9 +49,13 @@ public class MainActivity extends AppCompatActivity  {
         sudokuTable [9] = new int[]{ 2, 0, 0,   0, 0, 0,    0, 0, 5};
 
         zalivka();
+        searchNumber();
+
 
 
     }
+
+
 
     public void zalivka() {
 
@@ -83,11 +92,61 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
+    public  void searchNumber(){
+        // метод проверяет есть ли записанная нами цифра в судоку
+        // но в искомом массиве надо сначала сделать сортировку, чтобы
+        // метод binarySearch работал корректно
+        // поэтому копируем вертикаль, горизонталь и клетку 9 на 9
+        // а потом их сортируем
+        // и потом уже в них ищем
+
+        // А может вертикаль, горизонталь и клетку 9 на 9 скопировать в один массив?
+        // его отсортировать и выполнить в нем поиск?
+        //Для объединения двух массивов в Java можно использовать
+        // метод System.arraycopy().
+
+        int desiredNumber = 4; // the desired number - искомое число
+
+//System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+// System.arraycopy(исходный_массив,
+//                  индекс_начала_копирования,
+//                  целевой_массив,
+//                  индекс_вставки,
+//                  количество_элементов);
+
+
+        // горизонталь = горизонтали
+        int [] arrHorizont = sudokuTable [coordY];
+
+        // ветикаль  =
+        // 	For (		)
+        //		System.arraycopy(sudokuTable [i], Coord Y, arrVertic, i, 1);
+
+        int [] arrVertical = new int[9];
+        for (int i = 1; i < 10; i++) {
+            System.arraycopy(sudokuTable[i], coordX, arrVertical, i-1, 1);
+
+        }
+
+
+
+        int [] arrSquare = new int[] {21, 22, 23, 24, 25, 26, 27, 28, 29};
+
+        // И в конце копируем третий массив в результ
+        //System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+
+
+
+
+
+
+
+
+    }
+
 
     public void writeANumber(View view) {
-        int coordX = 1;
-        int coordY = 1;
-        int valueNumber = 0;
+
 
         TextView coordXtext = (TextView) findViewById(R.id.TextXcoord);// получение ссылки на TextView по его id
         String textX = coordXtext.getText().toString(); // получение текста из TextView в виде строки
@@ -106,6 +165,47 @@ public class MainActivity extends AppCompatActivity  {
         testInt = sudokuTable[1][0];
 
         zalivka();
+
+    }
+
+
+    public  void PrimerKopirovaniya() {
+
+        //Для объединения двух массивов в Java можно использовать
+        // метод System.arraycopy().
+
+//System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+// System.arraycopy(исходный_массив,
+//                  индекс_начала_копирования,
+//                  целевой_массив,
+//                  индекс_вставки,
+//                  количество_элементов);
+
+// System.arraycopy(исходный_массив, индекс_начала_копирования,
+// целевой_массив, индекс_вставки, количество_элементов);
+
+        int desiredNumber = 4; // the desired number - искомое число
+
+        int [] arr1 = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        int [] arr2 = new int[] {11, 12, 13, 14, 15, 16, 17, 18, 19};
+
+        int [] arr3 = new int[] {21, 22, 23, 24, 25, 26, 27, 28, 29};
+
+        //В этом примере мы создаем новый массив result длиной
+        // равной сумме длин двух исходных массивов
+        int [] result = new int[arr1.length + arr2.length + arr3.length];
+
+        // Затем мы копируем элементы из arr1 в начало result, начиная с индекса 0.
+        System.arraycopy(arr1, 0, result, 0, arr1.length);
+
+        // Затем мы копируем элементы из arr2 в result, начиная с индекса arr1.length
+        System.arraycopy(arr2, 0, result, arr1.length, arr2.length);
+
+        // И в конце копируем третий массив в результ
+        System.arraycopy(arr3, 0, result, arr2.length, arr3.length);
+
+
 
     }
 
