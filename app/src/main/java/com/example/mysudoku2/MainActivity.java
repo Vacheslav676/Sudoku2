@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity  {
 
         zalivka();
 
-        searchNumber(3, 2, 2);
+        if (searchNumber(3, 2, 2)) {
+            Log.i("MyLog", "Метод searchNumber сработал и выдал true");
+        } else { Log.i("MyLog", "Метод searchNumber сработал и выдал false");}
 
     }
 
@@ -118,7 +120,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-    public  void searchNumber(int desiredNumber, int x, int y){
+    public  boolean searchNumber(int desiredNumber, int x, int y){
         // the desired number - искомое число, x- икс координата числа, у - игрек координата числа
         // должен возвращать true - если выбранной нами цифры в судоку еще нет
         // и должен возвращать folse - если цифра уже есть в строке, столбце или квадрате
@@ -143,6 +145,8 @@ public class MainActivity extends AppCompatActivity  {
 
         //  1)
         // горизонталь = горизонтали
+        boolean check = false;
+
         int [] arrHorizont = sudokuTable [y];
 
         //   2)
@@ -236,12 +240,15 @@ public class MainActivity extends AppCompatActivity  {
 
         //   7)
         // если найдено - то сообщение об ошибке, если нет - то writeANumber();
-        if (index < 0) {
-        }
+        if (index < 0) { check = true;
+        } else {check = false;}
+
 
 // Здесь мы сразу передали сообщение "Привет, мир!" и длительность отображения Toast.LENGTH_SHORT
 // (короткая длительность). Метод show() отображает сообщение на экране.
         Toast.makeText(this, "Привет мир!", Toast.LENGTH_LONG).show();
+
+        return check;
 
 
     }
